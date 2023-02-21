@@ -9,7 +9,13 @@ import Home from './components/Home'
 import Editor from './components/Editor'
 import Admin from './components/Admin'
 import Lounge from './components/Lounge'
+import RequireAuth from './components/RequireAuth';
 
+const allowedRoles = {
+  'admin': ['administrator'],
+  'editor':['editor'],
+  'subscriber':['subscriber']
+}
 
 function App() {
   return (
@@ -20,11 +26,18 @@ function App() {
                <Route path='Register' element={<Register />} />
                <Route path='unauthorized' element={<Unauthorized />} />
 
+              
                <Route path='/' element={<Home />} />
-               <Route path='editor' element={<Editor />} />
-               <Route path='admin' element={<Admin />} />
-               <Route path='lounge' element={<Lounge />} />
 
+               <Route element={<RequireAuth allowedRoles={allowedRoles.editor}/>} >
+               <Route path='editor' element={<Editor />} />
+               </Route>
+               <Route element={<RequireAuth allowedRoles={allowedRoles.admin} />} >
+               <Route path='admin' element={<Admin />} />
+               </Route>
+               <Route element={<RequireAuth allowedRoles={allowedRoles.subscriber}/>} >
+               <Route path='lounge' element={<Lounge />} />
+               </Route>
          </Route>
       </Routes>
   );
