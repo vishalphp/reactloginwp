@@ -1,4 +1,3 @@
-import React from 'react'
 import axios from '../api/axios'
 import useAuth from './useAuth'
 
@@ -21,8 +20,6 @@ const refrshAPI = '/wp-json/jwt-auth/v1/token'
                 }
            
         });
-
-        console.log(response);
 
         setAuth((prev)=>{ 
             return {...prev, token: response?.data?.token}

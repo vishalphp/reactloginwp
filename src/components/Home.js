@@ -19,8 +19,10 @@ export default function Home() {
     <Link to="/editor">Editor</Link>
     <br/>
     <Link to="/admin">Admin</Link>
+    <br/>
+    <Link to="/users">Users</Link>
 
-<Users />
+
 <br/>
 <button>Refersh</button>
 

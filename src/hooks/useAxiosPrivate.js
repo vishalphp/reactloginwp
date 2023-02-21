@@ -1,12 +1,13 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import { privateAxios } from '../api/axios';
 import useRefershToken from './useRefershToken';
 import useAuth from './useAuth';
 
 const useAxiosPrivate = () => {
-  
-    const refreshToken = useRefershToken();
-    const {auth} = useAuth();
+  const refreshToken = useRefershToken();
+  const {auth} = useAuth();
+
+    console.log("file running...");
 
     useEffect(()=>{
         //request
@@ -31,11 +32,13 @@ const useAxiosPrivate = () => {
 
                 if(error.response.status === 403 || !previousConfig.sent){
                     previousConfig.sent = true;
-
-                    const newaccessToken = await useRefershToken();
+                    console.log("here 2");
+                    const newaccessToken = await refreshToken();
+                    //console.log(newaccessToken);
                     previousConfig.headers['Authorization'] =  `Bearer ${newaccessToken}`;
                     return privateAxios(previousConfig);
                 }
+                console.log("here 3");
               return Promise.reject(error);
             }
         );
@@ -43,11 +46,12 @@ const useAxiosPrivate = () => {
         return ()=>{
             privateAxios.interceptors.request.eject(requestIntercept);
             privateAxios.interceptors.response.eject(responseIntercept);
+            console.log("here 4");
         }
 
     },[auth, refreshToken]);
 
-     return axiosPrivate;
+     return privateAxios;
 
 }
 

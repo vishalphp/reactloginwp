@@ -1,11 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import useAuth from '../hooks/useAuth'
-import { privateAxios } from '../api/axios';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import {useNavigate, useLocation} from 'react-router-dom'
 
 export default function Users() { 
 
     const [users, setUsers] = useState();
     const { auth} = useAuth();
+    const navigator =  useNavigate();
+    const location = useLocation();
+
+    const privateAxiosHook = useAxiosPrivate();
 
     useEffect(()=>{
     
@@ -15,7 +20,7 @@ export default function Users() {
       const getUsers = async() =>{
            
               try{
-               const resp = await privateAxios.get('wp-json/wp/v2/users',{
+               const resp = await privateAxiosHook.get('wp-json/wp/v2/users',{
                     signal: abortController.signal,
                     headers: {
                       'Content-Type':'application/json', 
@@ -24,10 +29,12 @@ export default function Users() {
                       }
                });
           
-                //console.log(resp);
+                console.log(resp);
                isMounted && setUsers(resp.data);
               }catch(error){
-                 console.log(error);
+                 console.error(error);
+                 console.log("here 6");
+                 //navigator('/login',{state: {from: location}, replace: true })
               }
 
       }
