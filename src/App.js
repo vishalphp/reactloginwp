@@ -1,23 +1,32 @@
 import logo from './logo.svg';
 import './App.css';
+import Register from './Register';
+import Login from './Login';
+import {Routes, Route} from 'react-router-dom'
+import Layout from './components/Layout';
+import Unauthorized from './components/Unauthorized'
+import Home from './components/Home'
+import Editor from './components/Editor'
+import Admin from './components/Admin'
+import Lounge from './components/Lounge'
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to rel        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+         <Route path='/' element={<Layout />}>
+               
+               <Route path='login' element={<Login />} />
+               <Route path='Register' element={<Register />} />
+               <Route path='unauthorized' element={<Unauthorized />} />
+
+               <Route path='/' element={<Home />} />
+               <Route path='editor' element={<Editor />} />
+               <Route path='admin' element={<Admin />} />
+               <Route path='lounge' element={<Lounge />} />
+
+         </Route>
+      </Routes>
   );
 }
 
