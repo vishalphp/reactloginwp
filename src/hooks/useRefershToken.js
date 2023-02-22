@@ -9,6 +9,7 @@ const refrshAPI = '/wp-json/jwt-auth/v1/token'
 
     const refersh = async() =>{
  
+        console.log(auth);
  
         const response = await axios.post(refrshAPI, 
             JSON.stringify({username: auth.user, password: auth.pwd }),{
@@ -22,7 +23,9 @@ const refrshAPI = '/wp-json/jwt-auth/v1/token'
         });
 
         setAuth((prev)=>{ 
-            return {...prev, token: response?.data?.token}
+            return {
+                     ...prev,
+                     token: response?.data?.token}
         })
        return response?.data?.token;
     }

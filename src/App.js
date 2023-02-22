@@ -11,6 +11,7 @@ import Admin from './components/Admin'
 import Lounge from './components/Lounge'
 import RequireAuth from './components/RequireAuth';
 import Users from './components/Users';
+import PrisistLogin from './components/PrisistLogin';
 
 const allowedRoles = {
   'admin': ['administrator'],
@@ -28,6 +29,8 @@ function App() {
                <Route path='Register' element={<Register />} />
                <Route path='unauthorized' element={<Unauthorized />} />
 
+               <Route element={<PrisistLogin />}>
+
                <Route element={<RequireAuth allowedRoles={allowedRoles.all}/>} >
                <Route path='/' element={<Home />} />
                <Route path='users' element={<Users />} />
@@ -41,6 +44,7 @@ function App() {
                </Route>
                <Route element={<RequireAuth allowedRoles={allowedRoles.subscriber}/>} >
                <Route path='lounge' element={<Lounge />} />
+               </Route>
                </Route>
          </Route>
       </Routes>

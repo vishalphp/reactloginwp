@@ -30,7 +30,7 @@ const useAxiosPrivate = () => {
 
                 const previousConfig = error.config;
 
-                if(error.response.status === 403 || !previousConfig.sent){
+                if(error?.response?.status === 403 || !previousConfig.sent){
                     previousConfig.sent = true;
                     console.log("here 2");
                     const newaccessToken = await refreshToken();
